@@ -3,7 +3,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 
 function App() {
-  const user = true;
+  const user = false;
   return (
     <div>
       {!user ? <LoginPage /> : <HomePage />}
