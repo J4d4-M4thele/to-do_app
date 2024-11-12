@@ -1,9 +1,12 @@
 import React from 'react';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 
 function App() {
+  const user = true;
   return (
     <div>
-      <h1>To-Do App</h1>
+      {!user ? <LoginPage /> : <HomePage />}
     </div>
   );
 }
