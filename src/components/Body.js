@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TodoCard from "./ToDoCard";
+import ToDoCard from "./ToDoCard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
@@ -21,7 +21,7 @@ function Body() {
             status: false,
             time: serverTimestamp()
         })
-            .then(() => alert("To-do Added"))
+            .then(() => alert("Task added successfully"))
             .catch((err) => alert(err.message));
 
         //clear input field
@@ -55,6 +55,36 @@ function Body() {
                     Add Todo
                 </button>
             </div>
+
+            <div>
+                {todos?.map((todo) => (
+                    <ToDoCard
+                        key={todo.id}
+                        id={todo.id}
+                        todoName={todo?.todoName}
+                        time={todo.time?.toDate().getTime()}
+                        status={todo?.status}
+                    />
+                ))}
+            </div>
+
+            {addTodoModal && (
+        <div className="max-w-lg flex items-center justify-between">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            type="text"
+            placeholder="Task"
+            className="border p-2 flex-1 outline-none rounded-lg"
+          />
+          <button
+            onClick={addTodo}
+            className="bg-green-500 p-3 text-white text-sm font-bold rounded-lg hover:scale-110 transition-all duration-200 ease-in-out ml-3"
+          >
+            Add
+          </button>
+        </div>
+      )}
         </div>
     );
 }
